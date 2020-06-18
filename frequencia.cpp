@@ -9,7 +9,14 @@ void show_usage(const std::string &program_name)
 
 int main(int argc, char *argv[])
 {
-    std::ofstream end_file("file.txt", std::ios::app);
+    std::ifstream MyFileIn("MyFile.txt");
+    std::ofstream MyFileOut("MyFile.txt", std::ios::app);
+
+    if (!MyFileIn.is_open()) 
+    {
+        std::cerr << "Arquivo não existente ou sem permissão de leitura." << std::endl;
+        return -1;
+    }
 
     if (argc == 1)
     {
@@ -18,30 +25,45 @@ int main(int argc, char *argv[])
     }
     
     std::string action = argv[1];
-    
-    if (action != "add")
-    {
-        show_usage(argv[0]);
-        return -1;
-    }
-    
     std::string message;
     
     if (argc == 2)
     {
-        std::cout << "Type a message: ";
-        getline(std::cin, message);
-        end_file << message << std::endl;
+        if ( action == "list")
+        {
+            int enumeration = 0;
+            while (!MyFileIn.eof())
+            {
+                enumeration++;
+                std::getline(MyFileIn, message);
+                if (message.size() == 0)
+                    continue;
+                std::cout << enumeration << ". " << message << std::endl;
+            }
+            return 0;
+        }
+        else if (action == "add")
+        {
+            std::cout << "Type a message: ";
+            getline(std::cin, message);
+            MyFileOut << message << std::endl;
+        }
+        else
+        {
+            show_usage(argv[0]);
+            return -1;
+        }
     }
     else
     {
         message = argv[2];
-        end_file << message << std::endl;
+        MyFileOut << message << std::endl;
     }
     
     std::cout << "Message added" << std::endl;
 
-    end_file.close();
+    MyFileIn.close();
+    MyFileOut.close();
 
     return 0;
 }

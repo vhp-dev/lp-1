@@ -20,7 +20,19 @@ int App::run(int argc, char* argv[])
     {
         if (argc == 2)
         {
-            add();
+            // add();
+
+            // Adicionar 10 msg no array alocado para ter 10 msgs.
+            diary.add("teste1");
+            diary.add("teste2");
+            diary.add("teste3");
+            diary.add("teste4");
+            diary.add("teste5");
+            diary.add("teste6");
+            diary.add("teste7");
+            diary.add("teste8");
+            diary.add("teste9");
+            diary.add("teste10");
         } 
         else 
         {
@@ -34,6 +46,12 @@ int App::run(int argc, char* argv[])
     else
     {
         return show_usage();
+    }
+
+    for(int i = 0; i < diary.messages_size; i++) // Pra testar se todas 10 msg forar armazenadas no array
+    {
+        std::cout << diary.messages->content << std::endl;
+        diary.messages++;
     }
 
     return 0;

@@ -1,6 +1,5 @@
 #include "../include/Date.h"
 
-#include <iostream>
 #include <sstream>
 #include <string>
 #include <ctime>

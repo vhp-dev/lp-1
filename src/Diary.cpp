@@ -1,7 +1,5 @@
 #include "../include/Diary.h"
 
-#include <iostream>
-
 Diary::Diary(const std::string& filename) : 
     filename("myfile"),
     messages(nullptr),
@@ -29,8 +27,6 @@ void Diary::add(const std::string& message)
 
     messages[messages_size] = msg;
     messages_size++;
-
-
 }
 
 void Diary::write()

@@ -7,7 +7,8 @@
 
 struct Diary
 {
-    Diary(const std::string& filename);
+    Diary(const std::string& filename); //Constructor to initialize the class
+    ~Diary(); //Destructor to free memory used
 
     std::string filename; //Allows to have many diarys for each purpose
     Message* messages; //Store all messages for the diary
@@ -16,6 +17,8 @@ struct Diary
 
     void add(const std::string& message);
     void write();
+    void load();
+    void resize_capacity();
 };
 
 #endif

@@ -32,6 +32,17 @@ void Diary::add(const std::string& message)
     messages_size++;
 }
 
+Message* Diary::search(const std::string& to_search_for)
+{
+    for (size_t i = 0; i < messages_size; i++)
+    {
+        if (std::string::npos != messages[i].content.find(to_search_for))
+            return &messages[i];
+        else
+            return nullptr;
+    }
+}
+
 void Diary::write()
 {
     std::ofstream file_stream_in(filename); //ofstream: Stream class to write to files

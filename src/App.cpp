@@ -27,6 +27,17 @@ int App::run(int argc, char* argv[])
             add(argv[2]);
         }
     }
+    else if (action == "search")
+    {
+        if (argc == 2)
+        {
+            search();
+        }
+        else
+        {
+            search(argv[2]);
+        }
+    }
     else if (action == "list")
     {
         list_messages();
@@ -42,6 +53,7 @@ int App::run(int argc, char* argv[])
 void App::add()
 {
     std::string message;
+
     std::cout << "Enter your message: " << std::endl;
     std::getline(std::cin, message);
 
@@ -52,6 +64,30 @@ void App::add(const std::string message)
 {
     diary.add(message);
     diary.write();
+}
+
+void App::search()
+{
+    std::string to_search_for;
+
+    std::cout << "Enter what are you searching: " << std::endl;
+    std::getline(std::cin, to_search_for);
+
+    search(to_search_for);
+}
+
+void App::search(const std::string& to_search_for)
+{
+    if (diary.search(to_search_for) != nullptr)
+    {
+        std::cout << "Term found" << std::endl;
+        std::cout << diary.search(to_search_for)->content << std::endl;
+        return;
+    }
+
+    std::cout << "Term not found" << std::endl;
+    
+    return;
 }
 
 void App::list_messages()

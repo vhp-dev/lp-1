@@ -3,7 +3,7 @@ GCC_FLAGS = -I include -std=c++11
 PROGRAM = diary
 
 $(PROGRAM): App.o Date.o Diary.o Main.o Time.o
-	echo "=== COMPILANDO ===="
+	@echo "===================== COMPILANDO ====================="
 	$(GCC) $(GCC_FLAGS) -o $(PROGRAM) App.o Date.o Diary.o Main.o Time.o
 
 App.o: src/App.cpp include/App.h

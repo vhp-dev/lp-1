@@ -16,6 +16,8 @@ struct Diary
     size_t messages_capacity; //Maximun value supported by the array
 
     void add(const std::string& message);
+    Message* search(const std::string& to_search_for);
+
     void write();
     void load();
     void resize_capacity();

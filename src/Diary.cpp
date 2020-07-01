@@ -36,11 +36,12 @@ Message* Diary::search(const std::string& to_search_for)
 {
     for (size_t i = 0; i < messages_size; i++)
     {
-        if (std::string::npos != messages[i].content.find(to_search_for))
+        if (messages[i].content.find(to_search_for) != std::string::npos)
             return &messages[i];
-        else
-            return nullptr;
+
     }
+
+    return nullptr;
 }
 
 void Diary::write()

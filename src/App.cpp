@@ -81,7 +81,7 @@ void App::search(const std::string& to_search_for)
     if (diary.search(to_search_for) != nullptr)
     {
         std::cout << "Term found" << std::endl;
-        std::cout << diary.search(to_search_for)->content << std::endl;
+        std::cout << "- " << diary.search(to_search_for)->time.to_string() << " " << diary.search(to_search_for)->content << std::endl;
         return;
     }
 

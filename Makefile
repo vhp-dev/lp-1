@@ -20,3 +20,8 @@ Main.o: src/Main.cpp include/App.h
 
 Time.o: src/Time.cpp include/Time.h
 	$(GCC) $(GCC_FLAGS) -c src/Time.cpp
+
+clean:
+	rm -f *.o
+	rm $(PROGRAM)
+	rm myfile

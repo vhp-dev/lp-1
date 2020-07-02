@@ -78,21 +78,19 @@ void App::search()
 
 void App::search(const std::string& to_search_for)
 {
-    if (diary.search(to_search_for) != nullptr)
+    std::vector<Message*> messages_found = diary.search(to_search_for);
+
+    for(auto message : messages_found)
     {
-        std::cout << "Term found" << std::endl;
-        std::cout << "- " << diary.search(to_search_for)->time.to_string() << " " << diary.search(to_search_for)->content << std::endl;
-        return;
+        std::cout << message->content << std::endl;
     }
 
-    std::cout << "Term not found" << std::endl;
-    
     return;
 }
 
 void App::list_messages()
 {
-    for (size_t i = 0; i < diary.messages_size; i++)
+    for (size_t i = 0; i < diary.messages.size(); i++)
     {
         const Message& message = diary.messages[i];
         std::cout << "- " << message.content << std::endl;

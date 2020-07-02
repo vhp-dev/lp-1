@@ -4,44 +4,40 @@
 #include <fstream>
 
 Diary::Diary(const std::string& filename) : 
-    filename("myfile"),
-    messages(nullptr),
-    messages_size(0),
-    messages_capacity(10)
+    filename("myfile")
 {
-    messages = new Message[messages_capacity]; //Always initialize (new) inside a class constructor
     load();
 }
 
 Diary::~Diary()
 {
-    delete[] messages;
+
 }
 
 void Diary::add(const std::string& message)
 {
-    if (messages_size == messages_capacity)
-        resize_capacity();
-
     Message msg;
+
     msg.content = message;
     msg.date.set_from_string(get_current_date());
     msg.time.set_from_string(get_current_time());
 
-    messages[messages_size] = msg;
-    messages_size++;
+    messages.push_back(msg);
 }
 
-Message* Diary::search(const std::string& to_search_for)
+std::vector<Message*> Diary::search(const std::string& to_search_for)
 {
-    for (size_t i = 0; i < messages_size; i++)
-    {
-        if (messages[i].content.find(to_search_for) != std::string::npos)
-            return &messages[i];
+    std::vector<Message*> messages_found;
 
+std::cout << "qlq coisa" << std::endl;
+
+    for(auto& message : messages)
+    {
+        if (message.content.find(to_search_for) == 0)
+            messages_found.push_back(&message);
     }
 
-    return nullptr;
+    return messages_found;
 }
 
 void Diary::write()
@@ -51,7 +47,7 @@ void Diary::write()
 
     file_stream_in << "\n" << "# " << messages[0].date.to_string() << "\n" << std::endl;
 
-    for (size_t i = 0; i < messages_size; i++)
+    for (size_t i = 0; i < messages.size(); i++)
     {
         if (messages[i].date.to_string() != date_check)
         {
@@ -72,13 +68,11 @@ void Diary::load()
     std::string time;
     std::string content;
     std::string word;
-    int msg_count = 0;
+
+    Message msg;
 
     while (file_stream_out >> word)
     {
-        if (msg_count == messages_capacity)
-            resize_capacity();
-
         if (word == "#")
         {
             file_stream_out >> date_check;
@@ -86,22 +80,23 @@ void Diary::load()
 
         if (word == "-")
         {
-            messages[msg_count].date.set_from_string(date_check);
+            msg.date.set_from_string(date_check);
+            
             file_stream_out >> time;
-            messages[msg_count].time.set_from_string(time);
+            msg.time.set_from_string(time);
+
             std::getline(file_stream_out, content);
             content = content.substr(1,content.length() - 1);
-            messages[msg_count].content = content;
-            msg_count++;
+            msg.content = content;
+    
+            messages.push_back(msg);
         }
-
     }
-    messages_size = msg_count;
-
     file_stream_out.close();
 }
 
-void Diary::resize_capacity()
+/* // depreciated
+void Diary::resize_capacity() 
 {
     size_t new_capacity = messages_capacity * 2;
 
@@ -125,3 +120,4 @@ void Diary::resize_capacity()
 
     messages_capacity = new_capacity;
 }
+ */

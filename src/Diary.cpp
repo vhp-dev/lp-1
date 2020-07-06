@@ -1,16 +1,49 @@
 #include "Diary.h"
 
-#include <iostream>
 #include <fstream>
 
 Diary::Diary(const std::string& filename) : 
-    filename("myfile")
+    path(),
+    default_format()
 {
+    config_file();
     load();
 }
 
 Diary::~Diary()
 {
+
+}
+
+void Diary::config_file()
+{
+    std::ifstream file_stream_out("diary.config"); //ifstream: Stream class to read from files
+
+    if (file_stream_out.good())
+    {
+        std::string discard_word;
+        char discard_char;
+        std::string line;
+
+        std::getline(file_stream_out, line); //TODO: setar para que aceite em qlq linha fora de ordem
+        path = line.substr(5, line.length() - 1);
+
+        std::getline(file_stream_out, line);
+        default_format = line.substr(15, line.length() - 1);
+
+        file_stream_out.close();
+    }
+    else
+    {
+        std::ofstream file_stream_in("diary.config"); //ofstream: Stream class to write to files
+        path = "diary.md";
+        default_format = "%d %t: %m";
+
+        file_stream_in << "path=" << path << std::endl;
+        file_stream_in << "default_format=" << default_format << std::endl;
+
+        file_stream_in.close();
+    }
 
 }
 
@@ -29,8 +62,6 @@ std::vector<Message*> Diary::search(const std::string& to_search_for)
 {
     std::vector<Message*> messages_found;
 
-std::cout << "qlq coisa" << std::endl;
-
     for(auto& message : messages)
     {
         if (message.content.find(to_search_for) == 0)
@@ -42,7 +73,7 @@ std::cout << "qlq coisa" << std::endl;
 
 void Diary::write()
 {
-    std::ofstream file_stream_in(filename); //ofstream: Stream class to write to files
+    std::ofstream file_stream_in(path); //ofstream: Stream class to write to files
     std::string date_check = messages[0].date.to_string();
 
     file_stream_in << "\n" << "# " << messages[0].date.to_string() << "\n" << std::endl;
@@ -63,7 +94,7 @@ void Diary::write()
 
 void Diary::load()
 {
-    std::ifstream file_stream_out(filename); //ifstream: Stream class to read from files
+    std::ifstream file_stream_out(path); //ifstream: Stream class to read from files
     std::string date_check;
     std::string time;
     std::string content;

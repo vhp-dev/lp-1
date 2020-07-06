@@ -11,8 +11,11 @@ struct Diary
     Diary(const std::string& filename); //Constructor to initialize the class
     ~Diary(); //Destructor to free memory used
 
-    std::string filename; //Allows to have many diarys for each purpose
-    
+    std::string path; //Allows to have many diarys for each purpose
+    std::string default_format;
+    void config_file();
+
+
     /* // depreciated
     Message* messages; //Store all messages for the diary
     size_t messages_size; //Actual capacity at the moment

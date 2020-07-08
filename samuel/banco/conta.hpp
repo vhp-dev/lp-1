@@ -11,6 +11,11 @@ class Conta
         Cliente cliente;
         int numero;
         double saldo;
+        static int quantidadeContas;
+
+    Conta(Cliente cliente, double saldo);
+    Conta();
+    ~Conta();
 
     void sacar(double valor);
     void depositar(double valor);

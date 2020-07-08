@@ -10,6 +10,10 @@ class Cliente
     public:
         string nomeDoCliente;
         string cpf;
+        static int quantidadeClientes;
+
+        Cliente();
+        ~Cliente();
 };
 
 #endif // !CLIENTE_HPP

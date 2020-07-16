@@ -1,48 +1,39 @@
 #include <iostream>
 
-#include "conta.hpp"
+#include "clientepj.hpp"
+#include "cliente.hpp"
+#include "fila.hpp"
 
 using namespace std;
 
 int main(int argc, char const *argv[])
 {
+    Fila<Cliente> filaClientes(2);
+    Fila<ClientePJ> filaClientesPJ(2);
+
     Cliente cliente1;
-
-    cliente1.nomeDoCliente = "Vitor Hugo";
-    cliente1.cpf = "12345678911";
-
-    Conta conta1(cliente1, 200.50);
-
-    cout << "Nome do cliente: " <<conta1.cliente.nomeDoCliente << endl;
-    cout << "CPF:" << conta1.cliente.cpf << endl;
-    cout << "Saldo:" << conta1.saldo << endl;
-
-    conta1.sacar(50.25);
-
-    cout << "Saldo apos saque:" << conta1.saldo << endl;
-
-    conta1.depositar(25.50);
-
-    cout << "Saldo apos deposito:" << conta1.saldo << endl;
-
     Cliente cliente2;
+    Cliente cliente3;
 
-    cliente2.nomeDoCliente = "Artur Jose";
-    cliente2.cpf = "00000000000";
+    cliente2.setNomeCliente("Teste");
 
-    Conta conta2(cliente2, 1000.00);
+    ClientePJ clientepj1;
+    ClientePJ clientepj2;
+    ClientePJ clientepj3;
 
-    cout << "Nome do cliente: " <<conta2.cliente.nomeDoCliente << endl;
-    cout << "CPF:" << conta2.cliente.cpf << endl;
-    cout << "Saldo:" << conta2.saldo << endl;
+    clientepj2.setRazaoSocial("Teste razao");
 
-    conta1.transferir(100, conta2);
+    filaClientes.push(cliente1);
+    filaClientes.push(cliente2);
+    filaClientes.push(cliente3);
 
-    cout << "Saldo conta1 apos transferencia:" << conta1.saldo << endl;
-    cout << "Saldo conta2 apos transferencia:" << conta2.saldo << endl;
+    filaClientesPJ.push(clientepj1);
+    filaClientesPJ.push(clientepj2);
+    filaClientesPJ.push(clientepj3);
 
-    cout << "Quantidade de contas: " << conta1.quantidadeContas << endl;
-    cout << "Quantidade de clientes: " << cliente1.quantidadeClientes << endl;
+    cout << filaClientes.back().getNomeCliente() << endl;
+
+    cout << filaClientesPJ.back().getRazaoSocial() << endl;
 
     return 0;
 }

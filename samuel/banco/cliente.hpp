@@ -7,13 +7,18 @@ using namespace std;
 
 class Cliente
 {
-    public:
-        string nomeDoCliente;
-        string cpf;
-        static int quantidadeClientes;
+private:
+    string nomeCliente;
+    string cpf;
+    static int quantidadeClientes;
 
-        Cliente();
-        ~Cliente();
+public:
+    Cliente();
+    ~Cliente();
+    void setNomeCliente(string nomeCliente);
+    string getNomeCliente();
+    void setCPF(string cpf);
+    string getCPF();
 };
 
 #endif // !CLIENTE_HPP

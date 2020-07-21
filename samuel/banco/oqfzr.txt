@@ -1,0 +1,1 @@
+No programa do Banco ter uma classe chamada cliente onde as classes ClientePF e ClientePJ possam herdar delas (fiquem a vontade nos atributos e métodos). Criem um classe Funcionário e as classes derivadas Gerente, Caixa e Segurança (fiquem a vontade nos atributos e métodos).
